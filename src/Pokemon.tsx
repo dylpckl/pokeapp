@@ -22,7 +22,12 @@ export const Pokemon = () => {
     // weight: number;
     // abilities:
     // forms:,
-    // game_indices:,
+    game_indices: {
+      version: {
+        name: string;
+        url: string;
+      };
+    }[];
     // held_items:,
     // location_area_encounters:,
     // moves:,
@@ -31,7 +36,13 @@ export const Pokemon = () => {
       front_default: string;
     };
     // stats:,
-    // types:,
+    types: {
+      slot: number;
+      type: {
+        name: string;
+        url: string;
+      }[];
+    }[];
     // past_types
   }
 
@@ -45,6 +56,7 @@ export const Pokemon = () => {
   const [selectedPoke, setSelectedPoke] = useState<SinglePokemon | null>(null);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [searchText, setSearchText] = useState<string>("");
 
   const fetchData: any = async (id: undefined) => {
     try {
@@ -54,7 +66,7 @@ export const Pokemon = () => {
       setPrevUrl(response.data.previous);
 
       const data: PokemonList | null = response.data;
-      console.log(data);
+      // console.log(data);
       setPokemonData(data);
     } catch (e: any) {
       setError(e.message);
@@ -67,7 +79,7 @@ export const Pokemon = () => {
   const fetchPoke: any = async (url: string) => {
     try {
       const pokeResponse = await axios.get(url);
-      console.log(pokeResponse);
+      // console.log(pokeResponse);
       const pokeData = pokeResponse.data;
       console.log(pokeData);
       setSelectedPoke(pokeData);
@@ -126,27 +138,42 @@ export const Pokemon = () => {
           prev
         </button>
       </div>
+
       <div className="flex">
         <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto max-h-[80vh] w-[40vw]">
+          <input
+            className="text-black"
+            type="text"
+            placeholder="search for a poke"
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
+          />
           <ul>
             {!isLoading ? (
               pokemonData &&
-              pokemonData.results.map((pokemon: any) => (
-                <li key={pokemon.name}>
-                  <button
-                    onClick={() =>
-                      // handleGetPoke(
-                      //   `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-                      // )
-                      fetchPoke(
-                        `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-                      )
-                    }
-                  >
-                    {pokemon.name}
-                  </button>
-                </li>
-              ))
+              pokemonData.results
+                .filter((val) => {
+                  if (searchText === "") {
+                    return val;
+                  } else if (
+                    val.name.toLowerCase().includes(searchText.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((pokemon: any) => (
+                  <li key={pokemon.name}>
+                    <button
+                      onClick={() =>
+                        fetchPoke(
+                          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+                        )
+                      }
+                    >
+                      {pokemon.name}
+                    </button>
+                  </li>
+                ))
             ) : (
               <p>loading...</p>
             )}
@@ -156,7 +183,12 @@ export const Pokemon = () => {
           {selectedPoke ? (
             <div>
               <p>{selectedPoke.name}</p>
-              <img alt="poke sprite" src={selectedPoke.sprites.front_default}/>
+              <img alt="poke sprite" src={selectedPoke.sprites.front_default} />
+
+              {selectedPoke.types.map((type: any) => (
+                <p key={type.slot}>{type.type.name}</p>
+              ))}
+
             </div>
           ) : (
             <p>no poke</p>
