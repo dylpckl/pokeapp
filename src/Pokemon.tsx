@@ -122,7 +122,7 @@ export const Pokemon = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 justify-center items-center bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 w-screen h-screen">
+    <div className="flex flex-col gap-4 justify-center items-center bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 max-h-[60vh] overflow-auto">
       <div>
         <h1 className="mt-8 text-3xl">everyone needs to make a pokemon app</h1>
         <div className="flex gap-8">
@@ -145,7 +145,7 @@ export const Pokemon = () => {
       </div>
 
       <div className="flex gap-8">
-        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg max-h-[80vh] w-[40vw]">
+        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg max-h-[40vh]">
           <input
             className="text-black"
             type="text"
@@ -154,7 +154,7 @@ export const Pokemon = () => {
             value={searchText}
           />
           <button onClick={() => setSearchText("")}>clear search</button>
-          <div className="overflow-auto">
+          <div className="overflow-auto h-64">
             <ul>
               {!isLoading ? (
                 pokemonData &&
@@ -187,7 +187,7 @@ export const Pokemon = () => {
             </ul>
           </div>
         </div>
-        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto max-h-[80vh] w-[40vw]">
+        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto max-h-[80vh]">
           {selectedPoke ? (
             <div>
               <p>{selectedPoke.name}</p>
