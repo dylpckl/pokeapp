@@ -9,8 +9,8 @@ function App() {
 
   return (
     <>
-      <div className="bg-slate-600 w-screen h-screen flex justify-center items-center">
-        {/* <Pokemon /> */}
+      <Pokemon />
+      {/* <div className="bg-slate-600 w-screen h-screen flex justify-center items-center">
         <div
           id="desktop-container"
           className="w-[80vw] h-[80vh] bg-pink-300 rounded relative"
@@ -22,7 +22,6 @@ function App() {
                   <p>Pokemon.exe</p>
                   <button onClick={() => setModalIsVis(false)}>close</button>
                 </div>
-
                 <Pokemon />
               </div>
             </Draggable>
@@ -53,7 +52,7 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

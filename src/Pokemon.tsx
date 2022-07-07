@@ -60,6 +60,7 @@ export const Pokemon = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>("");
   const [pokeLoading, setPokeLoading] = useState<boolean>(false);
+  const [types, setTypes] = useState<any[]>([]);
 
   const fetchData: any = async (id: undefined) => {
     try {
@@ -93,6 +94,21 @@ export const Pokemon = () => {
     }
   };
 
+  // getTypes. loop thru id=1 to 20 and assign to array of objects
+  
+  const getTypes: any = async (url: string) => {
+    try {
+      const typeResponse = await axios.get(url);
+      console.log(typeResponse);
+      const typeData = typeResponse.data;
+      console.log(typeData);
+      return typeData;
+      setTypes(typeData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // const handleGetPoke = (pokeUrl: string) => {
   //   setPokeUrl(pokeUrl);
   //   console.log(pokeUrl);
@@ -113,17 +129,9 @@ export const Pokemon = () => {
     fetchData(url);
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Something went wrong.</div>;
-  }
-
   return (
-    <div className="flex flex-col gap-4 justify-center items-center bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 max-h-[60vh] overflow-auto">
-      <div>
+    <div className="flex flex-col gap-4 items-center bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 h-screen overflow-auto">
+      <div className="header">
         <h1 className="mt-8 text-3xl">everyone needs to make a pokemon app</h1>
         <div className="flex gap-8">
           <button onClick={fetchData} className=" bg-purple-400 p-4 rounded-md">
@@ -141,11 +149,21 @@ export const Pokemon = () => {
           >
             prev
           </button>
+          <button
+            onClick={() => getTypes("https://pokeapi.co/api/v2/type/1")}
+            className=" bg-purple-400 p-4 rounded-md"
+          >
+            get types
+          </button>
         </div>
       </div>
 
-      <div className="flex gap-8">
-        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg max-h-[40vh]">
+    <div className="type chart bg-slate-600 w-[600px] h-24 rounded-lg">
+
+    </div>
+
+      <div className="poke-list flex gap-8">
+        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg h-[60vh] w-96">
           <input
             className="text-black"
             type="text"
@@ -154,7 +172,7 @@ export const Pokemon = () => {
             value={searchText}
           />
           <button onClick={() => setSearchText("")}>clear search</button>
-          <div className="overflow-auto h-64">
+          <div className="overflow-auto">
             <ul>
               {!isLoading ? (
                 pokemonData &&
@@ -187,7 +205,8 @@ export const Pokemon = () => {
             </ul>
           </div>
         </div>
-        <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto max-h-[80vh]">
+
+        <div className="poke-card bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto h-[60vh] w-96">
           {selectedPoke ? (
             <div>
               <p>{selectedPoke.name}</p>
@@ -208,7 +227,7 @@ export const Pokemon = () => {
               </div>
             </div>
           ) : (
-            <p>{pokeLoading ? 'Loading...' : 'no poke 😢'}</p>
+            <p>{pokeLoading ? "Loading..." : "no poke 😢"}</p>
           )}
         </div>
       </div>
