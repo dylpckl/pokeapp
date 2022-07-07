@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Pokemon />
+    <Pokemon />
       {/* <div className="bg-slate-600 w-screen h-screen flex justify-center items-center">
         <div
           id="desktop-container"
