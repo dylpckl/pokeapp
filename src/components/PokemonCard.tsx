@@ -1,6 +1,6 @@
 import React from "react";
 
-interface
+// interface
 
 function PokemonCard({ pokemon }) {
   return (
