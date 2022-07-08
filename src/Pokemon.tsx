@@ -4,6 +4,8 @@ import { ObjectType } from "typescript";
 import { TypeRow } from "./components/TypeRow";
 import TYPE_COLORS from "./lib/typeColors";
 import PokemonCard from "./components/PokemonCard";
+import { PokemonCardProps } from "./components/PokemonCard";
+import TypeChart from "./components/TypeChart";
 
 export const Pokemon = () => {
   // const TYPE_COLORS: { [key: string]: any } = {
@@ -37,39 +39,39 @@ export const Pokemon = () => {
     }[];
   }
 
-  interface SinglePokemon {
-    id: number;
-    name: string;
-    // base_experience: number;
-    // height: number;
-    // is_default: boolean;
-    // order: number;
-    // weight: number;
-    // abilities:
-    // forms:,
-    game_indices: {
-      version: {
-        name: string;
-        url: string;
-      };
-    }[];
-    // held_items:,
-    // location_area_encounters:,
-    // moves:,
-    // species:,
-    sprites: {
-      front_default: string;
-    };
-    // stats:,
-    types: {
-      slot: number;
-      type: {
-        name: string;
-        url: string;
-      }[];
-    }[];
-    // past_types
-  }
+  // interface SinglePokemon {
+  //   id: number;
+  //   name: string;
+  //   // base_experience: number;
+  //   // height: number;
+  //   // is_default: boolean;
+  //   // order: number;
+  //   // weight: number;
+  //   // abilities:
+  //   // forms:,
+  //   game_indices: {
+  //     version: {
+  //       name: string;
+  //       url: string;
+  //     };
+  //   }[];
+  //   // held_items:,
+  //   // location_area_encounters:,
+  //   // moves:,
+  //   // species:,
+  //   sprites: {
+  //     front_default: string;
+  //   };
+  //   // stats:,
+  //   types: {
+  //     slot: number;
+  //     type: {
+  //       name: string;
+  //       url: string;
+  //     }[];
+  //   }[];
+  //   // past_types
+  // }
 
   const axios = require("axios").default;
   const [url, setUrl] = useState<string>(
@@ -80,7 +82,7 @@ export const Pokemon = () => {
   const [pokemon, setPokemon] = useState<any[]>([]);
   const [pokeUrl, setPokeUrl] = useState("");
   const [pokemonData, setPokemonData] = useState<PokemonList | null>(null);
-  const [selectedPoke, setSelectedPoke] = useState<SinglePokemon | null>(null);
+  const [selectedPoke, setSelectedPoke] = useState<PokemonCardProps | null>(null);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>("");
@@ -261,14 +263,16 @@ export const Pokemon = () => {
         </div>
       </div>
 
-      <div className="type chart bg-slate-600 w-[600px] min-h-24 rounded-lg">
+      {/* <div className="type chart bg-slate-600 w-[600px] min-h-24 rounded-lg">
         <div className="type-chart-header"></div>
         <div className="flex flex-col">
           {types.map((type: any) => (
             <TypeRow {...type} />
           ))}
         </div>
-      </div>
+      </div> */}
+
+      <TypeChart />
 
       <div className="poke-list flex gap-8">
         <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg h-[60vh] w-96">
@@ -334,7 +338,7 @@ export const Pokemon = () => {
             //     </div>
             //   </div>
             // </div>
-            <PokemonCard pokemon={selectedPoke}/>
+            <PokemonCard {...selectedPoke}/>
           ) : (
             <p>{pokeLoading ? "Loading..." : "no poke 😢"}</p>
           )}
