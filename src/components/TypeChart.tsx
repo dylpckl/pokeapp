@@ -1,25 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TypeRow } from "./TypeRow";
-import { TYPES } from "././../lib/types";
-
-// 20 x 20 grid of types
-// each type has a name and a color
-// each type has a list of types it is double damage to
-// each type has a list of types it is double damage from
-// each type has a list of types it is half damage to
-// each type has a list of types it is half damage from
-// each type has a list of types it is no damage to
-// each type has a list of types it is no damage from
-
-// function Grid(): void {
-//   for (let i = 0; i < 20; i++) {
-
-//   }
-//   return
-// }
+import { TYPES } from "../lib/types";
+import TYPE_COLORS from "../lib/typeColors";
 
 function TypeChart() {
+  
   const [types, setTypes] = useState<any>([]);
   const getAllTypes: any = async () => {
     let typeArr = [];
@@ -37,7 +23,7 @@ function TypeChart() {
         console.error(e);
       }
     }
-    console.log(types);
+    // console.log(types);
     setTypes(typeArr);
   };
 
@@ -47,14 +33,16 @@ function TypeChart() {
 
   return (
     <div>
-      <div className="flex gap-2">
-        {TYPES.map((type: string) => (
-          <p className="">{type}</p>
+      <div className="flex text-sm">
+        {TYPES.map((type: any) => (
+          <p style={{backgroundColor: TYPE_COLORS[type]}}>{type}</p>
         ))}
       </div>
-      {types.map((type: any) => (
-        <TypeRow {...type} />
-      ))}
+      <div>
+        {types.map((type: any) => (
+          <TypeRow {...type} />
+        ))}
+      </div>
     </div>
   );
 }
