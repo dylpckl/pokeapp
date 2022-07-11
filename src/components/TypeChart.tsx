@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TypeRow } from "./TypeRow";
+import { TYPES } from "././../lib/types";
 
 // 20 x 20 grid of types
 // each type has a name and a color
@@ -46,7 +47,11 @@ function TypeChart() {
 
   return (
     <div>
-      <h1>type chart</h1>
+      <div className="flex gap-2">
+        {TYPES.map((type: string) => (
+          <p className="">{type}</p>
+        ))}
+      </div>
       {types.map((type: any) => (
         <TypeRow {...type} />
       ))}
