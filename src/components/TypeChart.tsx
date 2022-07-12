@@ -5,7 +5,6 @@ import { TYPES } from "../lib/types";
 import TYPE_COLORS from "../lib/typeColors";
 
 function TypeChart() {
-  
   const [types, setTypes] = useState<any>([]);
   const getAllTypes: any = async () => {
     let typeArr = [];
@@ -35,7 +34,9 @@ function TypeChart() {
     <div>
       <div className="flex text-sm">
         {TYPES.map((type: any) => (
-          <p style={{backgroundColor: TYPE_COLORS[type]}}>{type}</p>
+          <p style={{ backgroundColor: TYPE_COLORS[type] }} key={type}>
+            {type}
+          </p>
         ))}
       </div>
       <div>

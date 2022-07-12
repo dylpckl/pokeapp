@@ -40,7 +40,7 @@ export function TypeRow({ id, name, damage_relations }: TypeProps) {
   const DoubleDamageTo = damage_relations.double_damage_to.map(
     (type: { name: string; url: string }) => {
       doubleDamageToArr.push(type.name);
-      console.log(type.name + ': 2x vs '+doubleDamageToArr);
+      // console.log(type.name + ': 2x vs '+doubleDamageToArr);
       return (
         <li key={type.name}>
           <a href={type.url}>{type.name}</a>
@@ -60,7 +60,10 @@ export function TypeRow({ id, name, damage_relations }: TypeProps) {
             damage_relations.double_damage_to.some((t: any) => t.name === type)
           ) {
             return (
-              <p className="bg-green-300 p-4 w-10 h-10 flex items-center justify-center border-2 border-black">
+              <p
+                className="bg-green-300 p-4 w-10 h-10 flex items-center justify-center border-2 border-black"
+                key={type.name}
+              >
                 2x
               </p>
             );
@@ -68,7 +71,10 @@ export function TypeRow({ id, name, damage_relations }: TypeProps) {
             damage_relations.half_damage_to.some((t: any) => t.name === type)
           ) {
             return (
-              <p className="bg-red-300 p-4 w-10 h-10 flex items-center justify-center border-2 border-black">
+              <p
+                className="bg-red-300 p-4 w-10 h-10 flex items-center justify-center border-2 border-black"
+                key={type.name}
+              >
                 .5x
               </p>
             );
@@ -76,13 +82,19 @@ export function TypeRow({ id, name, damage_relations }: TypeProps) {
             damage_relations.no_damage_to.some((t: any) => t.name === type)
           ) {
             return (
-              <p className="bg-black p-4 w-10 h-10 flex items-center justify-center text-white border-2 border-white">
+              <p
+                className="bg-black p-4 w-10 h-10 flex items-center justify-center text-white border-2 border-white"
+                key={type.name}
+              >
                 0x
               </p>
             );
           }
           return (
-            <p className="bg-white p-4 w-10 h-10 flex items-center justify-center border-2 border-black">
+            <p
+              className="bg-white p-4 w-10 h-10 flex items-center justify-center border-2 border-black"
+              key={type.name}
+            >
               1x
             </p>
           );

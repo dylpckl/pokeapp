@@ -6,6 +6,7 @@ import TYPE_COLORS from "./lib/typeColors";
 import PokemonCard from "./components/PokemonCard";
 import { PokemonCardProps } from "./components/PokemonCard";
 import TypeChart from "./components/TypeChart";
+import AutoComplete from "./components/AutoComplete";
 
 export const Pokemon = () => {
   interface PokemonList {
@@ -61,7 +62,9 @@ export const Pokemon = () => {
   const [pokemon, setPokemon] = useState<any[]>([]);
   const [pokeUrl, setPokeUrl] = useState("");
   const [pokemonData, setPokemonData] = useState<PokemonList | null>(null);
-  const [selectedPoke, setSelectedPoke] = useState<PokemonCardProps | null>(null);
+  const [selectedPoke, setSelectedPoke] = useState<PokemonCardProps | null>(
+    null
+  );
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>("");
@@ -92,7 +95,7 @@ export const Pokemon = () => {
       const pokeResponse = await axios.get(url);
       // console.log(pokeResponse);
       const pokeData = pokeResponse.data;
-      console.log(pokeData);
+      // console.log(pokeData);
       setSelectedPoke(pokeData);
       setPokeLoading(false);
     } catch (e: any) {
@@ -136,7 +139,7 @@ export const Pokemon = () => {
       }
     }
     // console.log(testArr);
-    console.log(types);
+    // console.log(types);
     // return types;
   };
 
@@ -262,6 +265,8 @@ export const Pokemon = () => {
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
+          
+          {pokemonData && <AutoComplete data={pokemonData!.results} />}
           <button onClick={() => setSearchText("")}>clear search</button>
           <div className="overflow-auto">
             <ul>
@@ -317,7 +322,7 @@ export const Pokemon = () => {
             //     </div>
             //   </div>
             // </div>
-            <PokemonCard {...selectedPoke}/>
+            <PokemonCard {...selectedPoke} />
           ) : (
             <p>{pokeLoading ? "Loading..." : "no poke 😢"}</p>
           )}
