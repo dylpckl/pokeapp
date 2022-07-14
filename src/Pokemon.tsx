@@ -19,40 +19,6 @@ export const Pokemon = () => {
     }[];
   }
 
-  // interface SinglePokemon {
-  //   id: number;
-  //   name: string;
-  //   // base_experience: number;
-  //   // height: number;
-  //   // is_default: boolean;
-  //   // order: number;
-  //   // weight: number;
-  //   // abilities:
-  //   // forms:,
-  //   game_indices: {
-  //     version: {
-  //       name: string;
-  //       url: string;
-  //     };
-  //   }[];
-  //   // held_items:,
-  //   // location_area_encounters:,
-  //   // moves:,
-  //   // species:,
-  //   sprites: {
-  //     front_default: string;
-  //   };
-  //   // stats:,
-  //   types: {
-  //     slot: number;
-  //     type: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //   }[];
-  //   // past_types
-  // }
-
   const axios = require("axios").default;
   const [url, setUrl] = useState<string>(
     "https://pokeapi.co/api/v2/pokemon?limit=151"
@@ -143,55 +109,6 @@ export const Pokemon = () => {
     // return types;
   };
 
-  // interface TypeProps {
-  //   name: string;
-  //   id: number;
-  //   damage_relations: {
-  //     double_damage_from: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //     double_damage_to: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //     half_damage_from: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //     half_damage_to: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //     no_damage_from: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //     no_damage_to: {
-  //       name: string;
-  //       url: string;
-  //     }[];
-  //   };
-  // }
-
-  // const TypeRow = ({ id, name, damage_relations }: TypeProps) => {
-  //   const typeColor: string = TYPE_COLORS[name];
-  //   return (
-  //     <>
-  //       <div
-  //         key={id}
-  //         style={{ backgroundColor: typeColor }}
-  //         className="col-span-1"
-  //       >
-  //         {name}
-  //       </div>
-  //       {damage_relations.double_damage_to.map((doubleDamageType: any) => {
-  //         <p key={doubleDamageType.name}>{doubleDamageType.name}</p>;
-  //       })}
-  //     </>
-  //   );
-  // };
-
   const handleClick = (nextOrPrev: string) => {
     if (nextOrPrev === "next") {
       setUrl(nextUrl);
@@ -228,15 +145,6 @@ export const Pokemon = () => {
             prev
           </button>
           <button
-            // onClick={() => {
-            //   for (let i = 1; i <= 18; i++) {
-            //     getType(`https://pokeapi.co/api/v2/type/${i}`);
-            //   }
-            //   setTypes(types);
-            //   console.log(types);
-            //   console.log(types[0].type.name);
-            //   console.log(types[0].type.url);
-            // }}
             onClick={getAllTypes}
             className=" bg-purple-400 p-4 rounded-md"
           >
@@ -244,15 +152,6 @@ export const Pokemon = () => {
           </button>
         </div>
       </div>
-
-      {/* <div className="type chart bg-slate-600 w-[600px] min-h-24 rounded-lg">
-        <div className="type-chart-header"></div>
-        <div className="flex flex-col">
-          {types.map((type: any) => (
-            <TypeRow {...type} />
-          ))}
-        </div>
-      </div> */}
 
       <TypeChart />
 
@@ -265,7 +164,7 @@ export const Pokemon = () => {
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
-          
+
           {pokemonData && <AutoComplete data={pokemonData!.results} />}
           <button onClick={() => setSearchText("")}>clear search</button>
           <div className="overflow-auto">
@@ -304,24 +203,6 @@ export const Pokemon = () => {
 
         <div className="poke-card bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg overflow-auto h-[60vh] w-96">
           {selectedPoke ? (
-            // <div>
-            //   <p>{selectedPoke.name}</p>
-            //   <img alt="poke sprite" src={selectedPoke.sprites.front_default} />
-
-            //   <div>
-            //     <h1 className="uppercase text-sm">types</h1>
-            //     <div className="flex gap-2">
-            //       {selectedPoke.types.map((type: any) => (
-            //         <p
-            //           key={type.slot}
-            //           className="bg-red-300 p-2 w-fit rounded-md"
-            //         >
-            //           {type.type.name}
-            //         </p>
-            //       ))}
-            //     </div>
-            //   </div>
-            // </div>
             <PokemonCard {...selectedPoke} />
           ) : (
             <p>{pokeLoading ? "Loading..." : "no poke 😢"}</p>
