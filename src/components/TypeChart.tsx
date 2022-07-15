@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TypeRow } from "./TypeRow";
-import { TYPES } from "../lib/types";
+import { TYPES } from "../lib/pokemonTypes";
 import TYPE_COLORS from "../lib/typeColors";
 
 function TypeChart() {

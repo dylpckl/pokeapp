@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TYPE_COLORS from "../lib/typeColors";
-import { TYPES } from "../lib/types";
+import { TYPES } from "../lib/pokemonTypes";
 
 interface TypeProps {
   name: string;

@@ -36,8 +36,9 @@ export const Pokemon = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [pokeLoading, setPokeLoading] = useState<boolean>(false);
   const [types, setTypes] = useState<any[]>([]);
+  const [typeChartVis, setTypeChartVis] = useState<boolean>(false);
 
-  const fetchData: any = async (id: undefined) => {
+  const fetchData: any = async (url: string) => {
     try {
       const response = await axios.get(url);
       // console.log(response);
@@ -145,15 +146,17 @@ export const Pokemon = () => {
             prev
           </button>
           <button
-            onClick={getAllTypes}
+            onClick={()=>{
+              setTypeChartVis(!typeChartVis);
+            }}
             className=" bg-purple-400 p-4 rounded-md"
           >
-            get types
+            toggle type chart
           </button>
         </div>
       </div>
 
-      <TypeChart />
+      {typeChartVis && <TypeChart />}
 
       <div className="poke-list flex gap-8">
         <div className="bg-slate-600 m-auto flex flex-col gap-2 p-4 text-white rounded-lg h-[60vh] w-96">

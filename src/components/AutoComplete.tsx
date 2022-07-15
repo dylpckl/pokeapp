@@ -6,12 +6,14 @@ const AutoComplete = ({ data }: any) => {
   const [suggestionActive, setSuggestionActive] = useState(false);
   const [value, setValue] = useState("");
   console.log(data);
+  
   // Monitor changes of input field and filter the data to find relevant suggestions
   const handleChange = (e: any) => {
     setValue(e.target.value);
     const query = e.target.value;
-    // console.log(query.toLowerCase());
+    console.log(query);
     setValue(query);
+    
     if (query.length > 1) {
       const filteredSuggestions = data.filter(
         (suggestion: any) => suggestion.name.toLowerCase().indexOf(query) > -1 // if suggestion contains query
